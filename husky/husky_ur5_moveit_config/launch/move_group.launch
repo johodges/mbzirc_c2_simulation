@@ -3,10 +3,12 @@
 
   <arg name="velodyne_lidar" default="true"/>
   <arg name="laser_enabled" default="false"/>
+  <arg name="joint_limit" default="false"/>
 
   <include file="$(find husky_ur5_moveit_config)/launch/planning_context.launch">
     <arg name="velodyne_lidar" value="$(arg velodyne_lidar)"/>
     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="joint_limit" value="$(arg joint_limit)"/>
   </include>
 
   <!-- GDB Debug Option -->

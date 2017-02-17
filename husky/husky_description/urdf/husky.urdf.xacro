@@ -25,6 +25,14 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <robot name="husky_robot" xmlns:xacro="http://ros.org/wiki/xacro">
 
+  <xacro:arg name="ur5_enabled" default="true" />
+  <xacro:arg name="velodyne_enabled" default="true" />
+  <xacro:arg name="sick_enabled" default="true" />
+  <xacro:arg name="kinectv2_enabled" default="true" />
+  <xacro:arg name="kinect_enabled" default="false" />
+  <xacro:arg name="ur5_camera_enabled" default="false"/>
+  <xacro:arg name="primesense_enabled" default="false"/>
+
   <!-- Included URDF/XACRO Files -->
   <xacro:include filename="$(find husky_description)/urdf/decorations.urdf.xacro" />
   <xacro:include filename="$(find husky_description)/urdf/wheel.urdf.xacro" />
@@ -36,7 +44,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:include filename="$(find husky_description)/urdf/accessories/velodyne_vlp16_mount.urdf.xacro"/>
   <xacro:include filename="$(find husky_description)/urdf/accessories/sensor_arch.urdf.xacro"/>
   <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
-  <xacro:include filename="$(find mybot_description)/urdf/gripper.xacro" />
+  <xacro:include filename="$(find gripper_description)/urdf/gripper.urdf.xacro" />
   <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" />
 
   <property name="M_PI" value="3.14159"/>
@@ -55,7 +63,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:property name="wheel_length" value="0.1143" />
   <xacro:property name="wheel_radius" value="0.17775" />
 
-  <xacro:macro name="husky_robot">
+  <!--xacro:macro name="husky_robot" -->
 
     <!-- Base link is the center of the robot's bottom plate -->
     <link name="base_link">
@@ -148,11 +156,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </joint>
 
       <!-- Spawn gripper-->
-      <xacro:gripper />
-      <!-- Join Gripper -->
+      <xacro:gripper_spawn prefix="ur5_arm_gripper_"/>
         <joint name="base_to_arm" type="fixed">
           <parent link="ur5_arm_wrist_3_link"/>
-          <child link="gripper_link"/>
+          <child link="ur5_arm_gripper_base_link"/>
           <origin xyz="0 0.09 0" rpy="0 0 0"/>
         </joint>
 
@@ -175,7 +182,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </xacro:if>
 
     <!-- Spawn sick_lms1xx -->
-    <xacro:if value="$(arg laser_enabled)">
+    <xacro:if value="$(arg sick_enabled)">
       <sick_lms1xx_mount prefix="base" topic="scan"/>
       <joint name="laser_mount_joint" type="fixed">
         <origin xyz="$(optenv HUSKY_LMS1XX_XYZ 0.415 0.0 -0.04)"
@@ -185,7 +192,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </joint>
     </xacro:if>
     <!-- Spawn velodyne vlp-16 -->
-    <xacro:if value="$(arg velodyne_lidar)">
+    <xacro:if value="$(arg velodyne_enabled)">
 
       <VLP-16 parent="top_plate_link" name="laser" topic="velodyne_points" >
         <origin xyz="0.415 0 -0.08" rpy="0 0 0" />
@@ -314,5 +321,5 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </joint>
     </xacro:if>
 
-  </xacro:macro>
+  <!--/xacro:macro -->
 </robot>

@@ -5,6 +5,7 @@
   <arg name="debug" default="false" />
   <arg name="velodyne_lidar" default="true"/>
   <arg name="laser_enabled" default="false"/>
+  <arg name="joint_limit" default="false"/>
 
   <!-- Remap follow_joint_trajectory -->
   <remap if="$(arg real)" from="arm_controller/follow_joint_trajectory" to="follow_joint_trajectory"/>
@@ -20,5 +21,6 @@
     <arg name="debug" default="$(arg debug)" />
     <arg name="velodyne_lidar" value="$(arg velodyne_lidar)"/>
     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="joint_limit" value="$(arg joint_limit)"/>
   </include>
 </launch>

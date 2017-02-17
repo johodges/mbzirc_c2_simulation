@@ -5,12 +5,20 @@ import actionlib
 from control_msgs.msg import *
 from trajectory_msgs.msg import *
 
-JOINT_NAMES = ['ur5_arm_shoulder_pan_joint', 'ur5_arm_shoulder_lift_joint', 'ur5_arm_elbow_joint',
+#JOINT_NAMES = ['ur5_arm_shoulder_pan_joint', 'ur5_arm_shoulder_lift_joint', 'ur5_arm_elbow_joint',
                'ur5_arm_wrist_1_joint', 'ur5_arm_wrist_2_joint', 'ur5_arm_wrist_3_joint']
 
-Q1 = [1.5707,-1.57,0.0,0.0,0.0,0.0]
-Q2 = [1.5707,-1.57,0.0,-2.7925,-1.5707,0.0]
-Q3 = [1.5707,-2.6927,2.6927,-3.1415,-1.5707,0.0]
+JOINT_NAMES = ['head_pan', 'right_j0', 'right_j1', 'right_j2', 'right_j3', 'right_j4', 'right_j5', 'right_j6']
+
+Q1 = [-0.06946574348407708, 0.0740005691912522, 8.811494629235028e-05, 0.00012994800542465157, -6.347990724009378e-05, -0.00012303364955990048, 0.015344299965057928, -6.530714214443398]
+Q2 = [-0.06946574348407708, 0.0740005691912522, 1.0, 0.00012994800542465157, -6.347990724009378e-05, -0.00012303364955990048, 0.015344299965057928, -6.530714214443398]
+Q3 = [-0.06946574348407708, 0.0740005691912522, 1.0, 1.0, -6.347990724009378e-05, -0.00012303364955990048, 0.015344299965057928, -6.530714214443398]
+#JOINT_NAMES = ['front_left_wheel', 'front_right_wheel', 'head_pan', 'left_tip_hinge', 'rear_left_wheel', 'rear_right_wheel', 'right_j0', 'right_j1', 'right_j2', 'right_j3', 'right_j4', 'right_j5', 'right_j6', 'right_tip_hinge']
+
+
+#Q1 = [1.5707,-1.57,0.0,0.0,0.0,0.0]
+#Q2 = [1.5707,-1.57,0.0,-2.7925,-1.5707,0.0]
+#Q3 = [1.5707,-2.6927,2.6927,-3.1415,-1.5707,0.0]
 
 client = None
 

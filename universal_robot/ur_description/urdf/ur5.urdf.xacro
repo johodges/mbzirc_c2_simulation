@@ -3,6 +3,7 @@
 
   <xacro:include filename="$(find ur_description)/urdf/ur.transmission.xacro" />
   <xacro:include filename="$(find ur_description)/urdf/ur.gazebo.xacro" />
+  <xacro:arg name="ur5_camera_enabled" default="false" />
 
   <property name="pi" value="3.14159265" />
   <property name="stl_scale" value="0.001" />

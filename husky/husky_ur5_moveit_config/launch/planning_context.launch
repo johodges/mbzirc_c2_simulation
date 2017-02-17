@@ -4,6 +4,7 @@
   <arg name="load_robot_description" default="false"/>
   <arg name="velodyne_lidar" default="true"/>
   <arg name="laser_enabled" default="false"/>
+  <arg name="joint_limit" default="false"/>
 
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
@@ -16,7 +17,7 @@
   <param if="$(arg laser_enabled)" name="$(arg robot_description)_semantic" textfile="$(find husky_ur5_moveit_config)/config/husky_ur5_sick.srdf" />
 
   <!-- Load updated joint limits (override information from URDF) -->
-  <group ns="$(arg robot_description)_planning">
+  <group if="$(arg joint_limit)" ns="$(arg robot_description)_planning">
     <rosparam command="load" file="$(find husky_ur5_moveit_config)/config/joint_limits.yaml"/>
     <rosparam command="load" file="$(find husky_ur5_moveit_config)/config/padding.yaml"/>
   </group>
