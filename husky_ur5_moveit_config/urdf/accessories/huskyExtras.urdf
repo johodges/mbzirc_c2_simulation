@@ -1,0 +1,438 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find husky_ur5_moveit_config)/urdf/accessories/sick_lms1xx_mount.urdf.xacro"/>
+  <!--xacro:include filename="$(find gripper_description)/urdf/gripper.urdf.xacro" /-->
+  <!-- Spawn arm -->
+
+  <link name="ur5_arm_base"/>
+  <joint name="ur5_arm_base_link-base_fixed_joint" type="fixed">
+    <origin rpy="0 0 -3.14159265" xyz="0 0 0"/>
+    <parent link="ur5_arm_base_link"/>
+    <child link="ur5_arm_base"/>
+  </joint>
+
+  <joint name="ur5_arm_base" type="fixed">
+    <parent link="top_plate_link"/>
+    <child link="ur5_arm_base_link"/>
+    <origin rpy="0.0 0.0 -1.57" xyz="0.3058 0 0.0065"/>
+  </joint>
+
+  <link name="ur5_arm_base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/base.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/collision/base.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.00443333156" ixy="0.0" ixz="0.0" iyy="0.00443333156" iyz="0.0" izz="0.0072"/>
+    </inertial>
+  </link>
+  <joint name="ur5_arm_shoulder_pan_joint" type="revolute">
+    <parent link="ur5_arm_base_link"/>
+    <child link="ur5_arm_shoulder_link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.089159"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="150.0" lower="-3.14159265" upper="3.14159265" velocity="3.15"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <link name="ur5_arm_shoulder_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/shoulder.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/collision/shoulder.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.010267495893" ixy="0.0" ixz="0.0" iyy="0.010267495893" iyz="0.0" izz="0.00666"/>
+    </inertial>
+  </link>
+  <joint name="ur5_arm_shoulder_lift_joint" type="revolute">
+    <parent link="ur5_arm_shoulder_link"/>
+    <child link="ur5_arm_upper_arm_link"/>
+    <origin rpy="0.0 1.570796325 0.0" xyz="0.0 0.13585 0.0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="150.0" lower="-3.14159265" upper="3.14159265" velocity="3.15"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <link name="ur5_arm_upper_arm_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/upperarm.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/collision/upperarm.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.28"/>
+      <inertia ixx="0.22689067591" ixy="0.0" ixz="0.0" iyy="0.22689067591" iyz="0.0" izz="0.0151074"/>
+    </inertial>
+  </link>
+  <joint name="ur5_arm_elbow_joint" type="revolute">
+    <parent link="ur5_arm_upper_arm_link"/>
+    <child link="ur5_arm_forearm_link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.1197 0.425"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="150.0" lower="-3.14159265" upper="3.14159265" velocity="3.15"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <link name="ur5_arm_forearm_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/forearm.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/collision/forearm.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.25"/>
+      <inertia ixx="0.049443313556" ixy="0.0" ixz="0.0" iyy="0.049443313556" iyz="0.0" izz="0.004095"/>
+    </inertial>
+  </link>
+  <joint name="ur5_arm_wrist_1_joint" type="revolute">
+    <parent link="ur5_arm_forearm_link"/>
+    <child link="ur5_arm_wrist_1_link"/>
+    <origin rpy="0.0 1.570796325 0.0" xyz="0.0 0.0 0.39225"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="28.0" lower="-3.14159265" upper="3.14159265" velocity="3.2"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <link name="ur5_arm_wrist_1_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/wrist1.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/collision/wrist1.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.111172755531" ixy="0.0" ixz="0.0" iyy="0.111172755531" iyz="0.0" izz="0.21942"/>
+    </inertial>
+  </link>
+  <joint name="ur5_arm_wrist_2_joint" type="revolute">
+    <parent link="ur5_arm_wrist_1_link"/>
+    <child link="ur5_arm_wrist_2_link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.093 0.0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="28.0" lower="-3.14159265" upper="3.14159265" velocity="3.2"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <link name="ur5_arm_wrist_2_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/wrist2.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/collision/wrist2.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.111172755531" ixy="0.0" ixz="0.0" iyy="0.111172755531" iyz="0.0" izz="0.21942"/>
+    </inertial>
+  </link>
+  <joint name="ur5_arm_wrist_3_joint" type="revolute">
+    <parent link="ur5_arm_wrist_2_link"/>
+    <child link="ur5_arm_wrist_3_link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.09465"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="28.0" lower="-6.28318530" upper="6.28318530" velocity="3.2"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <link name="ur5_arm_wrist_3_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/wrist3.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/collision/wrist3.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0171364731454" ixy="0.0" ixz="0.0" iyy="0.0171364731454" iyz="0.0" izz="0.033822"/>
+    </inertial>
+  </link>
+  <joint name="ur5_arm_ee_fixed_joint" type="fixed">
+    <parent link="ur5_arm_wrist_3_link"/>
+    <child link="ur5_arm_ee_link"/>
+    <origin rpy="0.0 0.0 1.570796325" xyz="0.0 0.0823 0.0"/>
+  </joint>
+  <link name="ur5_arm_ee_link">
+    <collision>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.01 0 0"/>
+    </collision>
+  </link>
+  <transmission name="ur5_arm_shoulder_pan_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ur5_arm_shoulder_pan_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ur5_arm_shoulder_pan_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="ur5_arm_shoulder_lift_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ur5_arm_shoulder_lift_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ur5_arm_shoulder_lift_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="ur5_arm_elbow_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ur5_arm_elbow_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ur5_arm_elbow_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="ur5_arm_wrist_1_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ur5_arm_wrist_1_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ur5_arm_wrist_1_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="ur5_arm_wrist_2_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ur5_arm_wrist_2_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ur5_arm_wrist_2_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="ur5_arm_wrist_3_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ur5_arm_wrist_3_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ur5_arm_wrist_3_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+
+<sick_lms1xx_mount prefix="base" topic="scan"/>
+<joint name="laser_mount_joint" type="fixed">
+<origin xyz="$(optenv HUSKY_LMS1XX_XYZ 0.415 0.0 -0.04)"
+	rpy="$(optenv HUSKY_LMS1XX_RPY 0.0 0.0 0.0)" />
+<parent link="top_plate_link" />
+<child link="base_laser_mount" />
+</joint>
+  <gazebo reference="base_laser">
+    <turnGravityOff>true</turnGravityOff>
+    <sensor name="base_laser" type="ray">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>50</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-2.35619</min_angle>
+            <max_angle>2.35619</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.001</stddev>
+        </noise>
+      </ray>
+      <plugin filename="libgazebo_ros_laser.so" name="gazebo_ros_laser">
+        <topicName>scan</topicName>
+        <frameName>base_laser</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <!--link name="base_laser_mount">
+    <visual>
+      <origin rpy="3.14159 0 -1.570795" xyz="0 0 0"/>
+      <geometry>
+
+        <mesh filename="package://husky_ur5_moveit_config/meshes/accessories/lms1xx_mount.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="3.14159 0 -1.570795" xyz="0 0 .0585"/>
+      <geometry>
+        <box size=".1 .108 .117"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_laser_joint" type="fixed">
+
+    <origin rpy="3.14159 0 0" xyz="-0.0352 0 -0.0566"/>
+    <parent link="base_laser_mount"/>
+    <child link="base_laser"/>
+  </joint>
+  <joint name="laser_mount_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.415 0.0 -0.04"/>
+    <parent link="top_plate_link"/>
+    <child link="base_laser_mount"/>
+  </joint-->
+
+
+
+
+  <!--link name="sensor_arch_mount_link">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+
+
+
+    <visual>
+      <geometry>
+        <mesh filename="package://husky_ur5_moveit_config/meshes/accessories/510_mm_sensor_arch.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://husky_ur5_moveit_config/meshes/accessories/510_mm_sensor_arch.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <joint name="sensor_arch_mount" type="fixed">
+    <origin rpy="0.0 0.0 -3.14159265359" xyz="-0.35 0.0 0.51"/>
+    <parent link="top_plate_link"/>
+    <child link="sensor_arch_mount_link"/>
+  </joint>
+
+
+
+
+  <joint name="camera_mount_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    <parent link="sensor_arch_mount_link"/>
+    <child link="camera_mount_link"/>
+  </joint>
+
+
+
+  <link name="camera_mount_link">
+    <visual>
+      <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="package://husky_ur5_moveit_config/meshes/accessories/kinectv2_mount.dae"/>
+      </geometry>
+      <material name="LightGrey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="package://husky_ur5_moveit_config/meshes/accessories/kinectv2_mount.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="kinectv2_frame_joint" type="fixed">
+    <origin rpy="0.0 0.0 3.14159265359" xyz="0.0 0.095 0.11"/>
+    <parent link="camera_mount_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+
+  <link name="camera_link">
+    <visual>
+      <origin rpy="0 0 -1.570795" xyz="0.0 0.095 -0.04"/>
+      <geometry>
+        <mesh filename="package://husky_ur5_moveit_config/meshes/accessories/kinectv2.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 -1.570795" xyz="0.0 0.095 -0.04"/>
+      <geometry>
+        <mesh filename="package://husky_ur5_moveit_config/meshes/accessories/kinectv2.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="camera_optical_frame"/>
+  <joint name="camera_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_optical_frame"/>
+  </joint-->
+
+      <!-- Spawn gripper-->
+      <!--xacro:gripper_spawn prefix="ur5_arm_gripper_"/>
+        <joint name="base_to_arm" type="fixed">
+          <parent link="ur5_arm_wrist_3_link"/>
+          <child link="ur5_arm_gripper_base_link"/>
+          <origin xyz="0 0.09 0" rpy="0 0 0"/>
+        </joint-->
+
+</robot>
