@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find husky_ur5_moveit_config)/urdf/accessories/sick_lms1xx_mount.urdf.xacro"/>
-  <!--xacro:include filename="$(find gripper_description)/urdf/gripper.urdf.xacro" /-->
+  <xacro:include filename="$(find gripper_description)/urdf/gripper.urdf.xacro" />
   <!-- Spawn arm -->
 
   <link name="ur5_arm_base"/>
@@ -428,11 +428,11 @@
   </joint-->
 
       <!-- Spawn gripper-->
-      <!--xacro:gripper_spawn prefix="ur5_arm_gripper_"/>
+      <xacro:gripper_spawn prefix="ur5_arm_gripper_"/>
         <joint name="base_to_arm" type="fixed">
           <parent link="ur5_arm_wrist_3_link"/>
           <child link="ur5_arm_gripper_base_link"/>
           <origin xyz="0 0.09 0" rpy="0 0 0"/>
-        </joint-->
+        </joint>
 
 </robot>
