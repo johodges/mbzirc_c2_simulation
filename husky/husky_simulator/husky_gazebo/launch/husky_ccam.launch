@@ -25,7 +25,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <launch>
   <arg name="velodyne_lidar" default="false"/>
-  <arg name="laser_enabled" default="true"/>
+  <arg name="sick_enabled" default="true"/>
   <arg name="ur5_enabled" default="false"/>
   <arg name="ur5_camera_enabled" default="true"/>
   <arg name="kinect_enabled" default="false"/>
@@ -36,7 +36,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <include file="$(find husky_gazebo)/launch/husky_empty_world.launch">
     <arg name="world_name" value="$(find husky_gazebo)/worlds/ccam_playpen.world"/>
     <arg name="velodyne_lidar" value="$(arg velodyne_lidar)"/>
-    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="sick_enabled" value="$(arg sick_enabled)"/>
     <arg name="ur5_enabled" value="$(arg ur5_enabled)"/>
     <arg name="ur5_camera_enabled" value="$(arg ur5_camera_enabled)"/>
     <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>

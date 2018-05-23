@@ -711,7 +711,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <child link="ur5_arm_base_link"/>
     <origin rpy="0.0 0.0 -1.57" xyz="0.3058 0 0.0065"/>
   </joint>
-  <!-- Spawn LIDAR if laser_enabled = "true" -->
+  <!-- Spawn LIDAR -->
   <link name="base_laser">
     <inertial>
       <mass value="1.1"/>

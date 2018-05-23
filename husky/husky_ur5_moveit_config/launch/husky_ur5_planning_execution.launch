@@ -4,7 +4,7 @@
   <arg name="limited" default="true"/>
   <arg name="debug" default="false" />
   <arg name="velodyne_lidar" default="true"/>
-  <arg name="laser_enabled" default="false"/>
+  <arg name="sick_enabled" default="false"/>
   <arg name="joint_limit" default="false"/>
 
   <!-- Remap follow_joint_trajectory -->
@@ -20,7 +20,7 @@
   <include file="$(find husky_ur5_moveit_config)/launch/move_group.launch">
     <arg name="debug" default="$(arg debug)" />
     <arg name="velodyne_lidar" value="$(arg velodyne_lidar)"/>
-    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="sick_enabled" value="$(arg sick_enabled)"/>
     <arg name="joint_limit" value="$(arg joint_limit)"/>
   </include>
 </launch>
